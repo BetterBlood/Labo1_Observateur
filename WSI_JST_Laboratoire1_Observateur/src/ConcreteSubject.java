@@ -13,6 +13,7 @@ public class ConcreteSubject {
         ActionListener secForChronos = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("chronoRunning #" + id + " " + ++timeInSecondes);
+                // TODO : appel à notify
             }
         };
         timer = new Timer(1000, secForChronos);
@@ -21,6 +22,15 @@ public class ConcreteSubject {
     public void reset()
     {
         timeInSecondes = (long)0;
+    }
+
+    /**
+     * retrieve la data depuis le concrete observer
+     * @return
+     */
+    public long getData()
+    {
+        return timeInSecondes;
     }
 
 }
