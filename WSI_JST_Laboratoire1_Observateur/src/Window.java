@@ -11,18 +11,11 @@ import java.util.List;
 
 public class Window {
 
-    Image cadranChiffresArabes;
-    Image cadranChiffresRomains;
-
     LinkedList<ConcreteSubject> chronos;
 
     public Window(int nbrTimer)
     {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        // path ok ! TODO : mais elles s'affichent pas....
-        cadranChiffresArabes = toolkit.getImage("images\\cadran_chiffres_arabes.jpg").getScaledInstance(200, 200, Image.SCALE_DEFAULT);
-        cadranChiffresRomains = toolkit.getImage("mages\\cadran_chiffres_romains.jpg").getScaledInstance(200, 200, java.awt.Image.SCALE_DEFAULT);
-
         chronos = new LinkedList<>();
 
         JFrame frame = new JFrame();
@@ -53,42 +46,8 @@ public class Window {
     {
         // subcrieb the observer to the relevant chrono
         ConcreteSubject chrono = chronos.get(chronoId);
-        chrono.subscrieb(new ConcreteObserver(chrono));
-
-        JFrame frame = new JFrame();
-        frame.setLayout(new FlowLayout());
-        frame.setSize(200,200);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
-        panel.setVisible(true);
-        frame.add(panel);
-        frame.setVisible(true);
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
-                chrono.unsubscrieb(new ConcreteObserver(chrono));
-                System.out.println("close test");
-            }
-        });
-
-        // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-        //          (re)démarre s’il était à l’arrêt.
-
-        final int chronoIdDisplay = chronoId + 1;
-        switch (chronoType)
-        {
-            case ARABE -> {
-                System.out.println("Chrono " + chronoIdDisplay + " : Arabe");
-                panel.getGraphics().drawImage(cadranChiffresArabes, 0, 0, panel);
-
-            }
-            case ROMAIN -> {
-                System.out.println("Chrono " + chronoIdDisplay + " : Romain");
-                panel.getGraphics().drawImage(cadranChiffresRomains, 0, 0, panel);
-            }
-            case NUMERIQUE -> System.out.println("Chrono " + chronoIdDisplay + " : Numérique");
-        }
+        ConcreteObserver observer = new ConcreteObserver(chrono, chronoId, chronoType);
+        chrono.subscrieb(observer);
     }
 
 
