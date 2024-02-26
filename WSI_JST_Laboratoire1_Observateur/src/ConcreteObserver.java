@@ -18,12 +18,15 @@ public class ConcreteObserver extends AbstractObserver {
         JFrame frame = new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setSize(200,200);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         panel.setVisible(true);
         frame.add(panel);
         frame.setVisible(true);
+        
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
@@ -40,13 +43,16 @@ public class ConcreteObserver extends AbstractObserver {
             case ARABE -> {
                 System.out.println("Chrono " + chronoIdDisplay + " : Arabe");
                 image = cadranChiffresArabes;
-
             }
             case ROMAIN -> {
                 System.out.println("Chrono " + chronoIdDisplay + " : Romain");
                 image = cadranChiffresRomains;
             }
-            case NUMERIQUE -> System.out.println("Chrono " + chronoIdDisplay + " : Numérique");
+            case NUMERIQUE ->
+            {
+                System.out.println("Chrono " + chronoIdDisplay + " : Numérique");
+                image = numerique;
+            }
         }
     }
 
