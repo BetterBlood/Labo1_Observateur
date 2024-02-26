@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.LinkedList;
@@ -49,6 +51,10 @@ public class Window {
 
     public void displayChrono(int chronoId, EnumChronoType chronoType)
     {
+        // subcrieb the observer to the relevant chrono
+        ConcreteSubject chrono = chronos.get(chronoId);
+        chrono.subscrieb(new ConcreteObserver(chrono));
+
         JFrame frame = new JFrame();
         frame.setLayout(new FlowLayout());
         frame.setSize(200,200);
@@ -58,16 +64,24 @@ public class Window {
         panel.setVisible(true);
         frame.add(panel);
         frame.setVisible(true);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
+                chrono.unsubscrieb(new ConcreteObserver(chrono));
+                System.out.println("close test");
+            }
+        });
 
-        // TODO : Chaque fenêtre doit pouvoir être fermée. (se désinscrire du Concrete subject)
         // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
         //          (re)démarre s’il était à l’arrêt.
+
         final int chronoIdDisplay = chronoId + 1;
         switch (chronoType)
         {
             case ARABE -> {
                 System.out.println("Chrono " + chronoIdDisplay + " : Arabe");
                 panel.getGraphics().drawImage(cadranChiffresArabes, 0, 0, panel);
+
             }
             case ROMAIN -> {
                 System.out.println("Chrono " + chronoIdDisplay + " : Romain");

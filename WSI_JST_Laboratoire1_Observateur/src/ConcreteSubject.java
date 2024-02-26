@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
-public class ConcreteSubject {
+public class ConcreteSubject extends AbstractSubject {
     Timer timer;
     Long timeInSecondes;
 
@@ -28,7 +28,7 @@ public class ConcreteSubject {
      * retrieve la data depuis le concrete observer
      * @return
      */
-    public long getData()
+    public long getTime()
     {
         return timeInSecondes;
     }
