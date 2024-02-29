@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public abstract class Subject {
     // region Field
-    private LinkedList<IObservable> observers;
+    private final LinkedList<IObservable> observers;
     // endregion
 
     protected Subject()

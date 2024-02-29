@@ -20,7 +20,6 @@ public class StopWatch extends Subject {
     // endregion
 
     // region Method
-
     public void initTimer() {
         second = 0;
         notifyObservers();

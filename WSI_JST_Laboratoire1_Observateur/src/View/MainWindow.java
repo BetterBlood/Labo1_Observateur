@@ -14,7 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 
-public class MainWindow {
+public class MainWindow extends JFrame{
 
     LinkedList<StopWatch> chronos;
 
@@ -51,7 +51,7 @@ public class MainWindow {
     {
         StopWatch chrono = chronos.get(chronoId);
 
-        IObservable clock = new Roman(chrono);
+        Roman clock = new Roman(chrono);
         chrono.attach(clock);
 
         JFrame clockFrame = new JFrame();
@@ -61,7 +61,7 @@ public class MainWindow {
 
         clockFrame.setLayout(new FlowLayout());
         clockFrame.setSize(200,200);
-        clockFrame.add((JPanel)clock);
+        clockFrame.add((JComponent) clock);
         clockFrame.setVisible(true);
 
         clockFrame.addWindowListener(new WindowAdapter() {
@@ -107,7 +107,7 @@ public class MainWindow {
     {
         StopWatch chrono = chronos.get(chronoId);
 
-        IObservable clock = new Digital(chrono);
+        Digital clock = new Digital(chrono);
         chrono.attach(clock);
 
         JFrame clockFrame = new JFrame();
