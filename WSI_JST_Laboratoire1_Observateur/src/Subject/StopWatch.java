@@ -1,17 +1,12 @@
 package Subject;
-
-import Observer.IObservable;
-
 import javax.swing.*;
-import java.util.LinkedList;
 
-public class StopWatch implements ISubjectable {
+public class StopWatch extends Subject {
     // region Field
     private final int SECOND_IN_HOUR = 3600;
     private final int SECOND_IN_MINUTE = 60;
 
-    private LinkedList<IObservable> observers; // TODO WSI : Contraire à l'uml, devrait être abstrait ?
-    private final Timer TIMER; // TODO WSI : Quel Timer utiliser ?
+    private final Timer TIMER;
     private int second;
 
     private static int nextId;
@@ -25,24 +20,6 @@ public class StopWatch implements ISubjectable {
     // endregion
 
     // region Method
-    @Override
-    public void attach(IObservable observer) {
-        if (!observers.contains(observer)) {
-            observers.add(observer);
-        }
-    }
-
-    @Override
-    public void detach(IObservable observer) {
-        observers.remove(observer);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (IObservable o : observers) {
-            o.update();
-        }
-    }
 
     public void initTimer() {
         second = 0;

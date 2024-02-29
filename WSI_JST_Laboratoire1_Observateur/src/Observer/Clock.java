@@ -2,13 +2,15 @@ package Observer;
 
 import Subject.StopWatch;
 
-public abstract class Clock implements IObservable {
+import javax.swing.*;
+
+public abstract class Clock extends JPanel implements IObservable {
     // region Field
     protected int hour;
     protected int minute;
     protected int second;
 
-    private final StopWatch SUBJECT; // TODO WSI : Must be a ISubjectable ? Je pense que nn car on est déja dans du concret => clock
+    private final StopWatch SUBJECT;
 
     private final int HEIGHT = 200;
     private final int WIDTH = 200;
