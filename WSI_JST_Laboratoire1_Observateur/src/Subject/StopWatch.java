@@ -34,6 +34,11 @@ public class StopWatch extends Subject {
         TIMER.stop();
     }
 
+    public void reset()
+    {
+        second = 0;
+    }
+
     @Override
     public String toString() {
         return "Chrono #" + ID;

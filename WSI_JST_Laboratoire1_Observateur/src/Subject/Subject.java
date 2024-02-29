@@ -8,6 +8,11 @@ public abstract class Subject {
     private LinkedList<IObservable> observers;
     // endregion
 
+    protected Subject()
+    {
+        observers = new LinkedList<>();
+    }
+
     // region Method
     public void attach(IObservable observer) {
         if (!observers.contains(observer)) {

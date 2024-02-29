@@ -3,6 +3,7 @@ package Observer;
 import Subject.StopWatch;
 
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class Clock extends JPanel implements IObservable {
     // region Field
@@ -21,7 +22,8 @@ public abstract class Clock extends JPanel implements IObservable {
     public Clock(StopWatch subject) {
         this.SUBJECT = subject;
         this.SUBJECT.attach(this);
-
+        setLayout(new FlowLayout());
+        setSize(200,200);
         update();
     }
     // endregion
@@ -32,6 +34,12 @@ public abstract class Clock extends JPanel implements IObservable {
         this.hour = SUBJECT.getHour();
         this.minute = SUBJECT.getMinute();
         this.second = SUBJECT.getSecond();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(Toolkit.getDefaultToolkit().getImage("/images/cadran_chiffres_arabes.jpg").getScaledInstance(200, 200, Image.SCALE_DEFAULT), 0, 0, this);
     }
     // endregion
 }
