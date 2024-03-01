@@ -111,7 +111,7 @@ public class MainWindow extends JFrame{
         chrono.attach(clock);
 
         JFrame clockFrame = new JFrame();
-        clockFrame.setTitle("Horloge Romaine");
+        clockFrame.setTitle("Horloge Numérique");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
@@ -124,7 +124,7 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Roman clock");
+                System.out.println("close Numérique clock");
             }
         });
         // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
