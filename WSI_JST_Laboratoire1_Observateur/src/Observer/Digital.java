@@ -5,17 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Digital extends Clock {
-    // region Field
-    private final JLabel label;
-    // endregion
-
     // region Ctor
     public Digital(StopWatch subject) {
         super(subject);
         setBackground(Color.GRAY);
-        label = new JLabel();
         this.setLayout(new GridBagLayout());
-        add(label);
+
     }
     // endregion
 

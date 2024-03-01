@@ -29,7 +29,7 @@ public abstract class Analog extends Clock {
     @Override
     public void update(){
         super.update();
-        repaint();
+        //repaint();
     }
     // endregion
 

@@ -15,12 +15,16 @@ public abstract class Clock extends JPanel implements IObservable {
 
     protected final int HEIGHT = 200;
     protected final int WIDTH = 200;
+
+    protected final JLabel label;
     // endregion
 
     // region Ctor
     public Clock(StopWatch subject) {
         this.SUBJECT = subject;
         this.SUBJECT.attach(this);
+        label = new JLabel();
+        add(label);
         update();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }

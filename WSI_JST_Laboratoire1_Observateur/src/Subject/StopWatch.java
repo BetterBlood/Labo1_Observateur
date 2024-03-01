@@ -16,7 +16,7 @@ public class StopWatch extends Subject {
     // region Ctor
     public StopWatch() {
         TIMER = new Timer(1, e -> incrementAndNotify());
-    }
+    } // TODO : set delay to 1000 (milisec)
     // endregion
 
     // region Method
@@ -40,7 +40,7 @@ public class StopWatch extends Subject {
 
     @Override
     public String toString() {
-        return "Chrono #" + ID;
+        return "Chrono #" + (ID + 1);
     }
 
     public int getHour() {
@@ -48,11 +48,11 @@ public class StopWatch extends Subject {
     }
 
     public int getMinute() {
-        return second / SECOND_IN_MINUTE;
+        return (second / SECOND_IN_MINUTE) % 60;
     }
 
     public int getSecond() {
-        return second;
+        return second % 60;
     }
 
     private void incrementAndNotify() {
