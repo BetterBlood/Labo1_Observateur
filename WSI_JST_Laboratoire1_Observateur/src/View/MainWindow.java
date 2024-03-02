@@ -2,16 +2,12 @@ package View;
 
 import Observer.Arab;
 import Observer.Digital;
-import Observer.IObservable;
 import Observer.Roman;
 import Subject.StopWatch;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.LinkedList;
 
 public class MainWindow extends JFrame{
@@ -61,7 +57,7 @@ public class MainWindow extends JFrame{
 
         clockFrame.setLayout(new FlowLayout());
         clockFrame.setSize(200,200);
-        clockFrame.add((JComponent) clock);
+        clockFrame.add(clock);
         clockFrame.setVisible(true);
 
         clockFrame.addWindowListener(new WindowAdapter() {
@@ -71,15 +67,15 @@ public class MainWindow extends JFrame{
                 System.out.println("close Roman clock");
             }
         });
-        // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-        //          (re)démarre s’il était à l’arrêt.
+
+        clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
     private void creatArabObserver(int chronoId)
     {
         StopWatch chrono = chronos.get(chronoId);
 
-        IObservable clock = new Arab(chrono);
+        Arab clock = new Arab(chrono);
         chrono.attach(clock);
 
         JFrame clockFrame = new JFrame();
@@ -89,7 +85,7 @@ public class MainWindow extends JFrame{
 
         clockFrame.setLayout(new FlowLayout());
         clockFrame.setSize(200,200);
-        clockFrame.add((JPanel)clock);
+        clockFrame.add(clock);
         clockFrame.setVisible(true);
 
         clockFrame.addWindowListener(new WindowAdapter() {
@@ -99,8 +95,8 @@ public class MainWindow extends JFrame{
                 System.out.println("close Arabe clock");
             }
         });
-        // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-        //          (re)démarre s’il était à l’arrêt.
+
+        clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
     private void creatDigitalObserver(int chronoId)
@@ -117,7 +113,7 @@ public class MainWindow extends JFrame{
 
         clockFrame.setLayout(new FlowLayout());
         clockFrame.setSize(200,200);
-        clockFrame.add((JPanel)clock);
+        clockFrame.add(clock);
         clockFrame.setVisible(true);
 
         clockFrame.addWindowListener(new WindowAdapter() {
@@ -127,8 +123,8 @@ public class MainWindow extends JFrame{
                 System.out.println("close Numérique clock");
             }
         });
-        // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-        //          (re)démarre s’il était à l’arrêt.
+
+        clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
     public void addNewLine(JFrame frame, int lineNumber)
@@ -145,7 +141,7 @@ public class MainWindow extends JFrame{
         JButton buttonArab = new JButton("Cadran Arabe");
         JButton buttonNum = new JButton("Numérique");
 
-        // TODO : s'inscrire au sujet (chrono) correspondant
+        // TODO : voir si on remplace par des lambda ? les new ActionListener()
         buttonStart.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -211,8 +207,6 @@ public class MainWindow extends JFrame{
         JButton buttonArab = new JButton("Cadran Arabe");
         JButton buttonNum = new JButton("Numérique");
 
-        // TODO : faire que les chrono s'ouvrent dans la meme fenetre
-        // TODO : s'inscrire au sujet (chrono) correspondant
         buttonRome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -227,10 +221,10 @@ public class MainWindow extends JFrame{
                 {
                     StopWatch chrono = chronos.get(i);
 
-                    IObservable clock = new Roman(chrono);
+                    Roman clock = new Roman(chrono);
                     chrono.attach(clock);
 
-                    clockFrame.add((JPanel)clock);
+                    clockFrame.add(clock);
                     clockFrame.addWindowListener(new WindowAdapter() {
                         public void windowClosing(WindowEvent e) {
                             // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
@@ -239,8 +233,7 @@ public class MainWindow extends JFrame{
                         }
                     });
 
-                    // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-                    //          (re)démarre s’il était à l’arrêt.
+                    clock.addMouseListener(new CustomMouseListener(chrono));
                 }
 
                 clockFrame.setVisible(true);
@@ -261,10 +254,10 @@ public class MainWindow extends JFrame{
                 {
                     StopWatch chrono = chronos.get(i);
 
-                    IObservable clock = new Arab(chrono);
+                    Arab clock = new Arab(chrono);
                     chrono.attach(clock);
 
-                    clockFrame.add((JPanel)clock);
+                    clockFrame.add(clock);
                     clockFrame.addWindowListener(new WindowAdapter() {
                         public void windowClosing(WindowEvent e) {
                             // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
@@ -273,8 +266,7 @@ public class MainWindow extends JFrame{
                         }
                     });
 
-                    // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-                    //          (re)démarre s’il était à l’arrêt.
+                    clock.addMouseListener(new CustomMouseListener(chrono));
                 }
 
                 clockFrame.setVisible(true);
@@ -295,10 +287,10 @@ public class MainWindow extends JFrame{
                 {
                     StopWatch chrono = chronos.get(i);
 
-                    IObservable clock = new Digital(chrono);
+                    Digital clock = new Digital(chrono);
                     chrono.attach(clock);
 
-                    clockFrame.add((JPanel)clock);
+                    clockFrame.add(clock);
                     clockFrame.addWindowListener(new WindowAdapter() {
                         public void windowClosing(WindowEvent e) {
                             // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
@@ -307,8 +299,7 @@ public class MainWindow extends JFrame{
                         }
                     });
 
-                    // TODO : Cliquer sur l’affichage d’un chronomètre met ce dernier en pause s’il était en marche ou le
-                    //          (re)démarre s’il était à l’arrêt.
+                    clock.addMouseListener(new CustomMouseListener(chrono));
                 }
 
                 clockFrame.setVisible(true);

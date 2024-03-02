@@ -25,6 +25,11 @@ public class StopWatch extends Subject {
         notifyObservers();
     }
 
+    public void swapRunning() {
+        if (TIMER.isRunning()) stopTimer();
+        else startTimer();
+    }
+
     public void startTimer() {
         TIMER.start();
     }

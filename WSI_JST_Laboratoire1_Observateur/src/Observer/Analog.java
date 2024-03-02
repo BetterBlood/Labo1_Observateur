@@ -3,6 +3,8 @@ package Observer;
 import Subject.StopWatch;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
+import java.lang.Math;
 
 public abstract class Analog extends Clock {
     // region Field
@@ -29,7 +31,7 @@ public abstract class Analog extends Clock {
     @Override
     public void update(){
         super.update();
-        //repaint();
+        repaint(); // needed for needles
     }
     // endregion
 
@@ -37,6 +39,23 @@ public abstract class Analog extends Clock {
     protected void paintComponent(Graphics g) {
         g.drawImage(image,0,0,this);
         g.drawString(SUBJECT.toString(), 80, 120);
-        // TODO Regarder comment dessiner les aiguilles
+
+        Graphics2D g2 = (Graphics2D)g;
+        drawNeedle(g2, secondHandColor, Math.toRadians(second * 6), 1, 0.9);
+        drawNeedle(g2, minuteHandColor, Math.toRadians(minute * 6), 2, 0.7);
+        drawNeedle(g2, hourHandColor, Math.toRadians(hour * 30 + (minute/2.)), 4, 0.4);
     }
+
+    private void drawNeedle(Graphics2D g2, Color color, double rad, int width, double length) {
+        Point centre = new Point(getWidth() / 2, getHeight() / 2);
+        Point needleEnd = new Point(
+                (int) (centre.x + Math.sin(rad) * (centre.x * length)),
+                (int) (centre.y - Math.cos(rad) * (centre.y * length)));
+
+        g2.setColor(color);
+        g2.setStroke(new BasicStroke(width));
+        
+        g2.draw(new Line2D.Double(centre.x, centre.y, needleEnd.x, needleEnd.y));
+    }
+
 }
