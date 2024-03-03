@@ -1,16 +1,15 @@
 package Observer;
 
 import Subject.StopWatch;
-
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.lang.Math;
 
 public abstract class Analog extends Clock {
     // region Field
-    private Color hourHandColor;
-    private Color minuteHandColor;
-    private Color secondHandColor;
+    private final Color hourHandColor;
+    private final Color minuteHandColor;
+    private final Color secondHandColor;
 
     private final Image image;
     // endregion
@@ -57,5 +56,4 @@ public abstract class Analog extends Clock {
         
         g2.draw(new Line2D.Double(centre.x, centre.y, needleEnd.x, needleEnd.y));
     }
-
 }

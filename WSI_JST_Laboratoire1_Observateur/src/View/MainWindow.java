@@ -1,6 +1,7 @@
 package View;
 
 import Observer.Arab;
+import Observer.Clock;
 import Observer.Digital;
 import Observer.Roman;
 import Subject.StopWatch;
@@ -43,15 +44,9 @@ public class MainWindow extends JFrame{
         frame.setVisible(true);
     }
 
-    private void creatRomanObserver(int chronoId)
-    {
-        StopWatch chrono = chronos.get(chronoId);
-
-        Roman clock = new Roman(chrono);
-        chrono.attach(clock);
-
+    private JFrame creatClockFrame(String frameTitle, Clock clock) {
         JFrame clockFrame = new JFrame();
-        clockFrame.setTitle("Horloge Romaine");
+        clockFrame.setTitle(frameTitle);
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
@@ -59,6 +54,17 @@ public class MainWindow extends JFrame{
         clockFrame.setSize(200,200);
         clockFrame.add(clock);
         clockFrame.setVisible(true);
+        return clockFrame;
+    }
+
+    private void creatRomanObserver(int chronoId)
+    {
+        StopWatch chrono = chronos.get(chronoId);
+
+        Roman clock = new Roman(chrono);
+        chrono.attach(clock);
+
+        JFrame clockFrame = creatClockFrame("Horloge Romaine", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -78,15 +84,7 @@ public class MainWindow extends JFrame{
         Arab clock = new Arab(chrono);
         chrono.attach(clock);
 
-        JFrame clockFrame = new JFrame();
-        clockFrame.setTitle("Horloge Arabe");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-
-        clockFrame.setLayout(new FlowLayout());
-        clockFrame.setSize(200,200);
-        clockFrame.add(clock);
-        clockFrame.setVisible(true);
+        JFrame clockFrame = creatClockFrame("Horloge Arabe", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -106,15 +104,7 @@ public class MainWindow extends JFrame{
         Digital clock = new Digital(chrono);
         chrono.attach(clock);
 
-        JFrame clockFrame = new JFrame();
-        clockFrame.setTitle("Horloge Numérique");
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-
-        clockFrame.setLayout(new FlowLayout());
-        clockFrame.setSize(200,200);
-        clockFrame.add(clock);
-        clockFrame.setVisible(true);
+        JFrame clockFrame = creatClockFrame("Horloge Numérique", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -141,49 +131,17 @@ public class MainWindow extends JFrame{
         JButton buttonArab = new JButton("Cadran Arabe");
         JButton buttonNum = new JButton("Numérique");
 
-        // TODO : voir si on remplace par des lambda ? les new ActionListener()
-        buttonStart.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                chronos.get(lineNumber).startTimer();
-            }
+        buttonStart.addActionListener(ae -> chronos.get(lineNumber).startTimer());
+        buttonStop.addActionListener(ae -> chronos.get(lineNumber).stopTimer());
+
+        buttonReset.addActionListener(ae -> {
+            chronos.get(lineNumber).stopTimer();
+            chronos.get(lineNumber).reset();
         });
 
-        buttonStop.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                chronos.get(lineNumber).stopTimer();
-            }
-        });
-
-        buttonReset.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                chronos.get(lineNumber).stopTimer();
-                chronos.get(lineNumber).reset();
-            }
-        });
-
-        buttonRome.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                creatRomanObserver(lineNumber);
-            }
-        });
-
-        buttonArab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                creatArabObserver(lineNumber);
-            }
-        });
-
-        buttonNum.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                creatDigitalObserver(lineNumber);
-            }
-        });
+        buttonRome.addActionListener(ae -> creatRomanObserver(lineNumber));
+        buttonArab.addActionListener(ae -> creatArabObserver(lineNumber));
+        buttonNum.addActionListener(ae -> creatDigitalObserver(lineNumber));
 
         panel.add(chronoName);
         panel.add(buttonStart);
@@ -207,103 +165,94 @@ public class MainWindow extends JFrame{
         JButton buttonArab = new JButton("Cadran Arabe");
         JButton buttonNum = new JButton("Numérique");
 
-        buttonRome.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                JFrame clockFrame = new JFrame();
-                clockFrame.setTitle("HorlogeS RomaineS");
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-                clockFrame.setLayout(new FlowLayout());
-                clockFrame.setSize(200 * nbrTimer,200);
+        buttonRome.addActionListener(ae -> {
+            JFrame clockFrame = new JFrame();
+            clockFrame.setTitle("HorlogeS RomaineS");
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLayout(new FlowLayout());
+            clockFrame.setSize(200 * nbrTimer,200);
 
-                for (int i = 0; i < nbrTimer; ++i)
-                {
-                    StopWatch chrono = chronos.get(i);
+            for (int i = 0; i < nbrTimer; ++i)
+            {
+                StopWatch chrono = chronos.get(i);
 
-                    Roman clock = new Roman(chrono);
-                    chrono.attach(clock);
+                Roman clock = new Roman(chrono);
+                chrono.attach(clock);
 
-                    clockFrame.add(clock);
-                    clockFrame.addWindowListener(new WindowAdapter() {
-                        public void windowClosing(WindowEvent e) {
-                            // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
-                            chrono.detach(clock);
-                            System.out.println("close Romans clocks");
-                        }
-                    });
+                clockFrame.add(clock);
+                clockFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
+                        chrono.detach(clock);
+                        System.out.println("close Romans clocks");
+                    }
+                });
 
-                    clock.addMouseListener(new CustomMouseListener(chrono));
-                }
-
-                clockFrame.setVisible(true);
+                clock.addMouseListener(new CustomMouseListener(chrono));
             }
+
+            clockFrame.setVisible(true);
         });
 
-        buttonArab.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                JFrame clockFrame = new JFrame();
-                clockFrame.setTitle("HorlogeS Arabes");
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-                clockFrame.setLayout(new FlowLayout());
-                clockFrame.setSize(200 * nbrTimer,200);
+        buttonArab.addActionListener(ae -> {
+            JFrame clockFrame = new JFrame();
+            clockFrame.setTitle("HorlogeS Arabes");
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLayout(new FlowLayout());
+            clockFrame.setSize(200 * nbrTimer,200);
 
-                for (int i = 0; i < nbrTimer; ++i)
-                {
-                    StopWatch chrono = chronos.get(i);
+            for (int i = 0; i < nbrTimer; ++i)
+            {
+                StopWatch chrono = chronos.get(i);
 
-                    Arab clock = new Arab(chrono);
-                    chrono.attach(clock);
+                Arab clock = new Arab(chrono);
+                chrono.attach(clock);
 
-                    clockFrame.add(clock);
-                    clockFrame.addWindowListener(new WindowAdapter() {
-                        public void windowClosing(WindowEvent e) {
-                            // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
-                            chrono.detach(clock);
-                            System.out.println("close Arabes clocks");
-                        }
-                    });
+                clockFrame.add(clock);
+                clockFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
+                        chrono.detach(clock);
+                        System.out.println("close Arabes clocks");
+                    }
+                });
 
-                    clock.addMouseListener(new CustomMouseListener(chrono));
-                }
-
-                clockFrame.setVisible(true);
+                clock.addMouseListener(new CustomMouseListener(chrono));
             }
+
+            clockFrame.setVisible(true);
         });
 
-        buttonNum.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                JFrame clockFrame = new JFrame();
-                clockFrame.setTitle("HorlogeS NumériqueS");
-                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-                clockFrame.setLayout(new FlowLayout());
-                clockFrame.setSize(200 * nbrTimer,200);
+        buttonNum.addActionListener(ae -> {
+            JFrame clockFrame = new JFrame();
+            clockFrame.setTitle("HorlogeS NumériqueS");
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLayout(new FlowLayout());
+            clockFrame.setSize(200 * nbrTimer,200);
 
-                for (int i = 0; i < nbrTimer; ++i)
-                {
-                    StopWatch chrono = chronos.get(i);
+            for (int i = 0; i < nbrTimer; ++i)
+            {
+                StopWatch chrono = chronos.get(i);
 
-                    Digital clock = new Digital(chrono);
-                    chrono.attach(clock);
+                Digital clock = new Digital(chrono);
+                chrono.attach(clock);
 
-                    clockFrame.add(clock);
-                    clockFrame.addWindowListener(new WindowAdapter() {
-                        public void windowClosing(WindowEvent e) {
-                            // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
-                            chrono.detach(clock);
-                            System.out.println("close numériques clocks");
-                        }
-                    });
+                clockFrame.add(clock);
+                clockFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing(WindowEvent e) {
+                        // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
+                        chrono.detach(clock);
+                        System.out.println("close numériques clocks");
+                    }
+                });
 
-                    clock.addMouseListener(new CustomMouseListener(chrono));
-                }
-
-                clockFrame.setVisible(true);
+                clock.addMouseListener(new CustomMouseListener(chrono));
             }
+
+            clockFrame.setVisible(true);
         });
 
         panel.add(tousLesChronos);

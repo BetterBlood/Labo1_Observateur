@@ -1,7 +1,6 @@
 package Observer;
 
 import Subject.StopWatch;
-
 import java.awt.*;
 
 public class Arab extends Analog {

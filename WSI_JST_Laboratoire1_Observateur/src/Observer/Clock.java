@@ -1,7 +1,6 @@
 package Observer;
 
 import Subject.StopWatch;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,9 +22,11 @@ public abstract class Clock extends JPanel implements IObservable {
     public Clock(StopWatch subject) {
         this.SUBJECT = subject;
         this.SUBJECT.attach(this);
-        label = new JLabel();
+        this.label = new JLabel();
+
         add(label);
         update();
+
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
     // endregion
