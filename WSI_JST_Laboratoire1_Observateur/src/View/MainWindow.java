@@ -26,7 +26,7 @@ public class MainWindow extends JFrame{
         Dimension screenSize = toolkit.getScreenSize();
         frame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
-        frame.setSize(720, 45 * (nbrTimer) + 80); // TODO : fit content
+        frame.setPreferredSize(new Dimension(720, 41 * (nbrTimer) + 80));
 
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setAlignment(FlowLayout.RIGHT);
@@ -42,6 +42,7 @@ public class MainWindow extends JFrame{
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        frame.pack();
     }
 
     private JFrame creatClockFrame(String frameTitle, Clock clock) {
@@ -151,7 +152,7 @@ public class MainWindow extends JFrame{
         panel.add(buttonRome);
         panel.add(buttonArab);
         panel.add(buttonNum);
-
+        
         frame.add(panel);
     }
 

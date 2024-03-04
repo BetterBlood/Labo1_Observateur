@@ -32,7 +32,6 @@ public abstract class Analog extends Clock {
         super.update();
         repaint(); // needed for needles
     }
-    // endregion
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -56,4 +55,5 @@ public abstract class Analog extends Clock {
         
         g2.draw(new Line2D.Double(centre.x, centre.y, needleEnd.x, needleEnd.y));
     }
+    // endregion
 }
