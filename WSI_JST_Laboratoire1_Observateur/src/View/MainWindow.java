@@ -20,29 +20,30 @@ public class MainWindow extends JFrame{
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         chronos = new LinkedList<>();
 
-        JFrame frame = new JFrame();
-        frame.setTitle("Panneau de contrôle");
+        //JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        setTitle("Panneau de contrôle");
 
         Dimension screenSize = toolkit.getScreenSize();
-        frame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+        setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
-        frame.setPreferredSize(new Dimension(720, 41 * (nbrTimer) + 80));
+        //setPreferredSize(new Dimension(720, 41 * (nbrTimer) + 80));
 
         FlowLayout flowLayout = new FlowLayout();
         flowLayout.setAlignment(FlowLayout.RIGHT);
-        frame.setLayout(flowLayout);
-        frame.setResizable(false);
+        setLayout(flowLayout);
+        setResizable(false);
 
         for (int i = 0; i < nbrTimer; ++i)
         {
-            addNewLine(frame, i);
+            addNewLine(panel, i);
             chronos.add(new StopWatch());
         }
-        addLastLine(frame, nbrTimer);
+        addLastLine(panel, nbrTimer);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        pack();
     }
 
     private JFrame creatClockFrame(String frameTitle, Clock clock) {
@@ -119,7 +120,7 @@ public class MainWindow extends JFrame{
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
-    public void addNewLine(JFrame frame, int lineNumber)
+    public void addNewLine(JPanel panFather, int lineNumber)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -152,11 +153,11 @@ public class MainWindow extends JFrame{
         panel.add(buttonRome);
         panel.add(buttonArab);
         panel.add(buttonNum);
-        
-        frame.add(panel);
+
+        panFather.add(panel);
     }
 
-    public void addLastLine(JFrame frame, int nbrTimer)
+    public void addLastLine(JPanel panFather, int nbrTimer)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -265,6 +266,6 @@ public class MainWindow extends JFrame{
         panel.add(buttonArab);
         panel.add(buttonNum);
 
-        frame.add(panel);
+        panFather.add(panel);
     }
 }
