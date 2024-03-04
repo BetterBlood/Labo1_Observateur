@@ -54,6 +54,7 @@ public class MainWindow extends JFrame{
         clockFrame.setSize(200,200);
         clockFrame.add(clock);
         clockFrame.setVisible(true);
+        clockFrame.pack();
         return clockFrame;
     }
 
@@ -193,6 +194,7 @@ public class MainWindow extends JFrame{
             }
 
             clockFrame.setVisible(true);
+            clockFrame.pack();
         });
 
         buttonArab.addActionListener(ae -> {
@@ -223,6 +225,7 @@ public class MainWindow extends JFrame{
             }
 
             clockFrame.setVisible(true);
+            clockFrame.pack();
         });
 
         buttonNum.addActionListener(ae -> {
@@ -253,6 +256,7 @@ public class MainWindow extends JFrame{
             }
 
             clockFrame.setVisible(true);
+            clockFrame.pack();
         });
 
         panel.add(tousLesChronos);

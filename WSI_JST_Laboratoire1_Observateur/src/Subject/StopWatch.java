@@ -41,6 +41,7 @@ public class StopWatch extends Subject {
     public void reset()
     {
         second = 0;
+        notifyObservers();
     }
 
     @Override
