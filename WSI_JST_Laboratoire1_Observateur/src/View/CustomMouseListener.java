@@ -1,7 +1,6 @@
 package View;
 
 import Subject.StopWatch;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 

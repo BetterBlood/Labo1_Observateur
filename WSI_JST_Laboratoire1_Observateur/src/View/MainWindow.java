@@ -72,7 +72,7 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Roman clock");
+                System.out.println("close Roman clock " + (chronoId + 1));
             }
         });
 
@@ -92,7 +92,7 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Arabe clock");
+                System.out.println("close Arabe clock " + (chronoId + 1));
             }
         });
 
@@ -112,7 +112,7 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Numérique clock");
+                System.out.println("close Numérique clock " + (chronoId + 1));
             }
         });
 
@@ -187,7 +187,7 @@ public class MainWindow extends JFrame{
                     public void windowClosing(WindowEvent e) {
                         // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                         chrono.detach(clock);
-                        System.out.println("close Romans clocks");
+                        System.out.println("close Romans clocks => Roman " + chrono + " closed");
                     }
                 });
 
@@ -218,7 +218,7 @@ public class MainWindow extends JFrame{
                     public void windowClosing(WindowEvent e) {
                         // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                         chrono.detach(clock);
-                        System.out.println("close Arabes clocks");
+                        System.out.println("close Arabes clocks => Arabe " + chrono + " closed");
                     }
                 });
 
@@ -249,7 +249,7 @@ public class MainWindow extends JFrame{
                     public void windowClosing(WindowEvent e) {
                         // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                         chrono.detach(clock);
-                        System.out.println("close numériques clocks");
+                        System.out.println("close Numériques clocks => Numérique " + chrono + " closed");
                     }
                 });
 

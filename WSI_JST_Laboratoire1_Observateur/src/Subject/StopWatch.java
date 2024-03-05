@@ -5,26 +5,22 @@ public class StopWatch extends Subject {
     // region Field
     private final int SECOND_IN_HOUR = 3600;
     private final int SECOND_IN_MINUTE = 60;
+    private final int SECOND_IN_MILLISECOND = 1000;
 
     private final Timer TIMER;
     private int second;
 
-    private static int nextId;
+    private static int nextId = 1;
     private final int ID = nextId++;
     // endregion
 
     // region Ctor
     public StopWatch() {
-        TIMER = new Timer(1, e -> incrementAndNotify());
-    } // TODO : set delay to 1000 (milisec)
+        TIMER = new Timer(SECOND_IN_MILLISECOND, e -> incrementAndNotify());
+    }
     // endregion
 
     // region Method
-    public void initTimer() {
-        second = 0;
-        notifyObservers();
-    }
-
     public void swapRunning() {
         if (TIMER.isRunning()) stopTimer();
         else startTimer();
@@ -46,7 +42,7 @@ public class StopWatch extends Subject {
 
     @Override
     public String toString() {
-        return "Chrono #" + (ID + 1);
+        return "Chrono #" + ID;
     }
 
     public int getHour() {
@@ -54,11 +50,11 @@ public class StopWatch extends Subject {
     }
 
     public int getMinute() {
-        return (second / SECOND_IN_MINUTE) % 60;
+        return (second / SECOND_IN_MINUTE) % SECOND_IN_MINUTE;
     }
 
     public int getSecond() {
-        return second % 60;
+        return second % SECOND_IN_MINUTE;
     }
 
     private void incrementAndNotify() {
