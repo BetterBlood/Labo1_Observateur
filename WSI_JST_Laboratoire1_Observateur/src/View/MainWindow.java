@@ -29,10 +29,7 @@ public class MainWindow extends JFrame{
 
         //setPreferredSize(new Dimension(720, 41 * (nbrTimer) + 80));
 
-        FlowLayout flowLayout = new FlowLayout();
-        flowLayout.setAlignment(FlowLayout.RIGHT);
-        setLayout(flowLayout);
-        setResizable(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         for (int i = 0; i < nbrTimer; ++i)
         {
@@ -43,7 +40,8 @@ public class MainWindow extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        pack();
+        add(panel);
+        setResizable(false);
     }
 
     private JFrame creatClockFrame(String frameTitle, Clock clock) {
@@ -123,7 +121,9 @@ public class MainWindow extends JFrame{
     public void addNewLine(JPanel panFather, int lineNumber)
     {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setAlignment(FlowLayout.RIGHT);
+        panel.setLayout(flowLayout);
 
         JLabel chronoName = new JLabel("Chrono #" + (lineNumber + 1));
 
@@ -160,7 +160,10 @@ public class MainWindow extends JFrame{
     public void addLastLine(JPanel panFather, int nbrTimer)
     {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setAlignment(FlowLayout.RIGHT);
+        panel.setLayout(flowLayout);
+
 
         JLabel tousLesChronos = new JLabel("Tous les chronos");
 
