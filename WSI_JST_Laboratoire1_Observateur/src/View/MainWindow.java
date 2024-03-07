@@ -35,8 +35,8 @@ public class MainWindow extends JFrame{
 
         for (int i = 0; i < nbrTimer; ++i)
         {
-            addNewLine(frame, i);
             chronos.add(new StopWatch());
+            addNewLine(frame, i);
         }
         addLastLine(frame, nbrTimer);
 
@@ -52,16 +52,16 @@ public class MainWindow extends JFrame{
         clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
 
         clockFrame.setLayout(new FlowLayout());
-        clockFrame.setSize(200,200);
+        //clockFrame.setSize(200,200);
         clockFrame.add(clock);
         clockFrame.setVisible(true);
         clockFrame.pack();
         return clockFrame;
     }
 
-    private void creatRomanObserver(int chronoId)
+    private void creatRomanObserver(int chronoIndex)
     {
-        StopWatch chrono = chronos.get(chronoId);
+        StopWatch chrono = chronos.get(chronoIndex);
 
         Roman clock = new Roman(chrono);
         chrono.attach(clock);
@@ -72,16 +72,16 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Roman clock " + (chronoId + 1));
+                System.out.println("close Roman clock " + chrono);
             }
         });
 
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
-    private void creatArabObserver(int chronoId)
+    private void creatArabObserver(int chronoIndex)
     {
-        StopWatch chrono = chronos.get(chronoId);
+        StopWatch chrono = chronos.get(chronoIndex);
 
         Arab clock = new Arab(chrono);
         chrono.attach(clock);
@@ -92,16 +92,16 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Arabe clock " + (chronoId + 1));
+                System.out.println("close Arabe clock " + chrono);
             }
         });
 
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
-    private void creatDigitalObserver(int chronoId)
+    private void creatDigitalObserver(int chronoIndex)
     {
-        StopWatch chrono = chronos.get(chronoId);
+        StopWatch chrono = chronos.get(chronoIndex);
 
         Digital clock = new Digital(chrono);
         chrono.attach(clock);
@@ -112,19 +112,19 @@ public class MainWindow extends JFrame{
             public void windowClosing(WindowEvent e) {
                 // Chaque fenêtre se désinscrit du Concrete subject à la fermeture
                 chrono.detach(clock);
-                System.out.println("close Numérique clock " + (chronoId + 1));
+                System.out.println("close Numérique clock " + chrono);
             }
         });
 
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
-    public void addNewLine(JFrame frame, int lineNumber)
+    private void addNewLine(JFrame frame, int lineNumber)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
 
-        JLabel chronoName = new JLabel("Chrono #" + (lineNumber + 1));
+        JLabel chronoName = new JLabel(chronos.get(lineNumber).toString());
 
         JButton buttonStart = new JButton("Démarrer");
         JButton buttonStop = new JButton("Arrêter");
@@ -156,7 +156,7 @@ public class MainWindow extends JFrame{
         frame.add(panel);
     }
 
-    public void addLastLine(JFrame frame, int nbrTimer)
+    private void addLastLine(JFrame frame, int nbrTimer)
     {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
@@ -204,7 +204,6 @@ public class MainWindow extends JFrame{
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
             clockFrame.setLayout(new FlowLayout());
-            clockFrame.setSize(200 * nbrTimer,200);
 
             for (int i = 0; i < nbrTimer; ++i)
             {
@@ -235,7 +234,6 @@ public class MainWindow extends JFrame{
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
             clockFrame.setLayout(new FlowLayout());
-            clockFrame.setSize(200 * nbrTimer,200);
 
             for (int i = 0; i < nbrTimer; ++i)
             {
