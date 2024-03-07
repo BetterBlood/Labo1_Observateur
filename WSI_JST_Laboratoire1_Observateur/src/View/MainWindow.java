@@ -13,48 +13,48 @@ import java.util.LinkedList;
 
 public class MainWindow extends JFrame{
 
-    LinkedList<StopWatch> chronos;
+    // region Filed
+    private final LinkedList<StopWatch> chronos;
+    private final Point windowLocation;
+    // endregion
 
+    // region Ctor
     public MainWindow(int nbrTimer)
     {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         chronos = new LinkedList<>();
 
-        JFrame frame = new JFrame();
-        frame.setTitle("Panneau de contrôle");
+        JPanel panel = new JPanel();
+        setTitle("Panneau de contrôle");
 
         Dimension screenSize = toolkit.getScreenSize();
-        frame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+        windowLocation = new Point((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+        setLocation(windowLocation);
 
-        frame.setPreferredSize(new Dimension(720, 41 * (nbrTimer) + 80));
-
-        FlowLayout flowLayout = new FlowLayout();
-        flowLayout.setAlignment(FlowLayout.RIGHT);
-        frame.setLayout(flowLayout);
-        frame.setResizable(false);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         for (int i = 0; i < nbrTimer; ++i)
         {
             chronos.add(new StopWatch());
-            addNewLine(frame, i);
+            addNewLine(panel, i);
         }
-        addLastLine(frame, nbrTimer);
+        addLastLine(panel, nbrTimer);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+        add(panel);
+        setResizable(false);
     }
+    // endregion
 
+    //region Private Methods
     private JFrame creatClockFrame(String frameTitle, Clock clock) {
         JFrame clockFrame = new JFrame();
         clockFrame.setTitle(frameTitle);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
-
-        clockFrame.setLayout(new FlowLayout());
-        //clockFrame.setSize(200,200);
+        clockFrame.setLocation(windowLocation);
         clockFrame.add(clock);
         clockFrame.setVisible(true);
+        clockFrame.setResizable(false);
         clockFrame.pack();
         return clockFrame;
     }
@@ -119,10 +119,12 @@ public class MainWindow extends JFrame{
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
-    private void addNewLine(JFrame frame, int lineNumber)
+    private void addNewLine(JPanel panFather, int lineNumber)
     {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setAlignment(FlowLayout.RIGHT);
+        panel.setLayout(flowLayout);
 
         JLabel chronoName = new JLabel(chronos.get(lineNumber).toString());
 
@@ -152,14 +154,16 @@ public class MainWindow extends JFrame{
         panel.add(buttonRome);
         panel.add(buttonArab);
         panel.add(buttonNum);
-        
-        frame.add(panel);
+
+        panFather.add(panel);
     }
 
-    private void addLastLine(JFrame frame, int nbrTimer)
+    private void addLastLine(JPanel panFather, int nbrTimer)
     {
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        FlowLayout flowLayout = new FlowLayout();
+        flowLayout.setAlignment(FlowLayout.RIGHT);
+        panel.setLayout(flowLayout);
 
         JLabel tousLesChronos = new JLabel("Tous les chronos");
 
@@ -170,8 +174,7 @@ public class MainWindow extends JFrame{
         buttonRome.addActionListener(ae -> {
             JFrame clockFrame = new JFrame();
             clockFrame.setTitle("HorlogeS RomaineS");
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLocation(windowLocation);
             clockFrame.setLayout(new FlowLayout());
             clockFrame.setSize(200 * nbrTimer,200);
 
@@ -190,10 +193,8 @@ public class MainWindow extends JFrame{
                         System.out.println("close Romans clocks => Roman " + chrono + " closed");
                     }
                 });
-
                 clock.addMouseListener(new CustomMouseListener(chrono));
             }
-
             clockFrame.setVisible(true);
             clockFrame.pack();
         });
@@ -201,8 +202,7 @@ public class MainWindow extends JFrame{
         buttonArab.addActionListener(ae -> {
             JFrame clockFrame = new JFrame();
             clockFrame.setTitle("HorlogeS Arabes");
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLocation(windowLocation);
             clockFrame.setLayout(new FlowLayout());
 
             for (int i = 0; i < nbrTimer; ++i)
@@ -220,10 +220,8 @@ public class MainWindow extends JFrame{
                         System.out.println("close Arabes clocks => Arabe " + chrono + " closed");
                     }
                 });
-
                 clock.addMouseListener(new CustomMouseListener(chrono));
             }
-
             clockFrame.setVisible(true);
             clockFrame.pack();
         });
@@ -231,8 +229,7 @@ public class MainWindow extends JFrame{
         buttonNum.addActionListener(ae -> {
             JFrame clockFrame = new JFrame();
             clockFrame.setTitle("HorlogeS NumériqueS");
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            clockFrame.setLocation((int)screenSize.getWidth()/3, (int)screenSize.getHeight()/3);
+            clockFrame.setLocation(windowLocation);
             clockFrame.setLayout(new FlowLayout());
 
             for (int i = 0; i < nbrTimer; ++i)
@@ -250,10 +247,8 @@ public class MainWindow extends JFrame{
                         System.out.println("close Numériques clocks => Numérique " + chrono + " closed");
                     }
                 });
-
                 clock.addMouseListener(new CustomMouseListener(chrono));
             }
-
             clockFrame.setVisible(true);
             clockFrame.pack();
         });
@@ -263,6 +258,7 @@ public class MainWindow extends JFrame{
         panel.add(buttonArab);
         panel.add(buttonNum);
 
-        frame.add(panel);
+        panFather.add(panel);
     }
+    // endregion
 }

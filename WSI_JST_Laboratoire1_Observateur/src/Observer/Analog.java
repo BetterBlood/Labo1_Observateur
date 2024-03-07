@@ -45,7 +45,7 @@ public abstract class Analog extends Clock {
     }
 
     private void drawNeedle(Graphics2D g2, Color color, double rad, int width, double length) {
-        Point centre = new Point(getWidth() / 2, getHeight() / 2);
+        Point centre = new Point(image.getWidth(this) / 2, image.getHeight(this) / 2);
         Point needleEnd = new Point(
                 (int) (centre.x + Math.sin(rad) * (centre.x * length)),
                 (int) (centre.y - Math.cos(rad) * (centre.y * length)));
