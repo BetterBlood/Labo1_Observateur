@@ -25,7 +25,7 @@ public abstract class Subject {
      * Description : Constructeur par défaut de la classe Subject. Initialise la liste
      *               des observateurs.
      */
-    protected Subject() {
+    public Subject() {
         observers = new LinkedList<>();
     }
     // endregion

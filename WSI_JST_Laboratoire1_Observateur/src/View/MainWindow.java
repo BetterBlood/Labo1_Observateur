@@ -23,7 +23,7 @@ import java.util.LinkedList;
 
 public class MainWindow extends JFrame{
 
-    // region Filed
+    // region Field
     private final LinkedList<StopWatch> chronos;
     private final Point windowLocation;
     // endregion
@@ -185,7 +185,7 @@ public class MainWindow extends JFrame{
 
         buttonReset.addActionListener(ae -> {
             chronos.get(lineNumber).stopTimer();
-            chronos.get(lineNumber).reset();
+            chronos.get(lineNumber).resetTimer();
         });
 
         buttonRome.addActionListener(ae -> creatRomanObserver(lineNumber));

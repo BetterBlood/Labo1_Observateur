@@ -17,7 +17,7 @@ import java.awt.event.MouseListener;
 
 public class CustomMouseListener implements MouseListener {
     // region Field
-    StopWatch chrono;
+    private final StopWatch chrono;
     // endregion
 
     // region Ctor

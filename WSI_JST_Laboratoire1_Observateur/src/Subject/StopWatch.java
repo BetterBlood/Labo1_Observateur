@@ -63,10 +63,10 @@ public class StopWatch extends Subject {
     }
 
     /**
-     * Nom         : reset
+     * Nom         : resetTimer
      * Description : Réinitialise le chronomètre en remettant le temps écoulé à zéro.
      */
-    public void reset()
+    public void resetTimer()
     {
         second = 0;
         notifyObservers();
