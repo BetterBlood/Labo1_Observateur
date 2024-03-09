@@ -72,7 +72,7 @@ public class MainWindow extends JFrame{
      * @param clock      : L'horloge à afficher dans la fenêtre.
      * @return           : La nouvelle instance de JFrame configurée avec l'horloge.
      */
-    private JFrame creatClockFrame(String frameTitle, Clock clock) {
+    private JFrame createClockFrame(String frameTitle, Clock clock) {
         JFrame clockFrame = new JFrame();
         clockFrame.setTitle(frameTitle);
         clockFrame.setLocation(windowLocation);
@@ -88,14 +88,14 @@ public class MainWindow extends JFrame{
      * Description        : Crée et attache un observateur d'horloge romaine au chronomètre donné.
      * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
      */
-    private void creatRomanObserver(int chronoIndex)
+    private void createRomanObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
 
         Roman clock = new Roman(chrono);
         chrono.attach(clock);
 
-        JFrame clockFrame = creatClockFrame("Horloge Romaine", clock);
+        JFrame clockFrame = createClockFrame("Horloge Romaine", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -113,14 +113,14 @@ public class MainWindow extends JFrame{
      * Description        : Crée et attache un observateur d'horloge arabe au chronomètre donné.
      * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
      */
-    private void creatArabObserver(int chronoIndex)
+    private void createArabObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
 
         Arab clock = new Arab(chrono);
         chrono.attach(clock);
 
-        JFrame clockFrame = creatClockFrame("Horloge Arabe", clock);
+        JFrame clockFrame = createClockFrame("Horloge Arabe", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -138,14 +138,14 @@ public class MainWindow extends JFrame{
      * Description        : Crée et attache un observateur d'horloge numérique au chronomètre donné.
      * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
      */
-    private void creatDigitalObserver(int chronoIndex)
+    private void createDigitalObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
 
         Digital clock = new Digital(chrono);
         chrono.attach(clock);
 
-        JFrame clockFrame = creatClockFrame("Horloge Numérique", clock);
+        JFrame clockFrame = createClockFrame("Horloge Numérique", clock);
 
         clockFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -188,9 +188,9 @@ public class MainWindow extends JFrame{
             chronos.get(lineNumber).resetTimer();
         });
 
-        buttonRome.addActionListener(ae -> creatRomanObserver(lineNumber));
-        buttonArab.addActionListener(ae -> creatArabObserver(lineNumber));
-        buttonNum.addActionListener(ae -> creatDigitalObserver(lineNumber));
+        buttonRome.addActionListener(ae -> createRomanObserver(lineNumber));
+        buttonArab.addActionListener(ae -> createArabObserver(lineNumber));
+        buttonNum.addActionListener(ae -> createDigitalObserver(lineNumber));
 
         panel.add(chronoName);
         panel.add(buttonStart);
@@ -216,7 +216,7 @@ public class MainWindow extends JFrame{
         flowLayout.setAlignment(FlowLayout.RIGHT);
         panel.setLayout(flowLayout);
 
-        JLabel tousLesChronos = new JLabel("Tous les chronos");
+        JLabel allChronos = new JLabel("Tous les chronos");
 
         JButton buttonRome = new JButton("Cadran romain");
         JButton buttonArab = new JButton("Cadran Arabe");
@@ -304,7 +304,7 @@ public class MainWindow extends JFrame{
             clockFrame.pack();
         });
 
-        panel.add(tousLesChronos);
+        panel.add(allChronos);
         panel.add(buttonRome);
         panel.add(buttonArab);
         panel.add(buttonNum);
