@@ -5,6 +5,19 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 import java.lang.Math;
 
+/**
+ * -----------------------------------------------------------------------------------
+ * @Authors      : Slimani Walid & Steiner Jeremiah
+ * @Description  : Cette classe abstraite représente une horloge analogique dans une
+ *                interface graphique. Elle étend la classe Clock et implémente un
+ *                observateur pour un chronomètre donné (à travers la classe Clock).
+ *                Cette horloge affiche les valeurs du chronomètre sous forme analogique,
+ *                avec des aiguilles pour les heures, les minutes et les secondes, ainsi
+ *                qu'une représentation visuelle du chronomètre.
+ * @Info        : /
+ * -----------------------------------------------------------------------------------
+ **/
+
 public abstract class Analog extends Clock {
     // region Field
     private final Color hourHandColor;
@@ -15,6 +28,16 @@ public abstract class Analog extends Clock {
     // endregion
 
     // region Ctor
+    /**
+     * Nom                    : Analog
+     * Description            : Constructeur de la classe Analog, initialise une horloge analogique
+     *                          avec les paramètres spécifiés.
+     * @param subject         : Le chronomètre associé à cette horloge analogique.
+     * @param clockImagePath  : Le chemin d'accès de l'image représentant l'horloge.
+     * @param hourHandColor   : La couleur de l'aiguille des heures.
+     * @param minuteHandColor : La couleur de l'aiguille des minutes.
+     * @param secondHandColor : La couleur de l'aiguille des secondes.
+     */
     public Analog(StopWatch subject, String clockImagePath,Color hourHandColor, Color minuteHandColor, Color secondHandColor) {
         super(subject);
 
@@ -27,12 +50,24 @@ public abstract class Analog extends Clock {
     // endregion
 
     // region Methode
+    /**
+     * Nom         : update
+     * Description : Met à jour l'horloge analogique en appelant la méthode update de
+     *               la classe mère et en redessinant l'horloge avec les nouvelles valeurs.
+     */
     @Override
     public void update(){
         super.update();
         repaint(); // needed for needles
     }
 
+    /**
+     * Nom         : paintComponent
+     * Description : Redessine le composant graphique en affichant l'image de
+     *               l'horloge et en dessinant les aiguilles correspondant aux
+     *               heures, minutes et secondes.
+     * @param g    : Le contexte graphique dans lequel dessiner.
+     */
     @Override
     protected void paintComponent(Graphics g) {
         g.drawImage(image,0,0,this);
@@ -44,6 +79,16 @@ public abstract class Analog extends Clock {
         drawNeedle(g2, hourHandColor, Math.toRadians(hour * 30 + (minute/2.)), 4, 0.4);
     }
 
+    /**
+     * Nom           : drawNeedle
+     * Description   : Dessine une aiguille à partir des coordonnées spécifiées,
+     *                 avec la couleur, la largeur et la longueur spécifiées.
+     * @param g2     : Le contexte graphique dans lequel dessiner.
+     * @param color  : La couleur de l'aiguille.
+     * @param rad    : L'angle en radians de l'aiguille.
+     * @param width  : La largeur de l'aiguille.
+     * @param length : La longueur de l'aiguille.
+     */
     private void drawNeedle(Graphics2D g2, Color color, double rad, int width, double length) {
         Point centre = new Point(image.getWidth(this) / 2, image.getHeight(this) / 2);
         Point needleEnd = new Point(

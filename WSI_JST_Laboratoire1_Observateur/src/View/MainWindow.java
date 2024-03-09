@@ -11,6 +11,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.LinkedList;
 
+/**
+ * -----------------------------------------------------------------------------------
+ * @Authors     : Slimani Walid & Steiner Jeremiah
+ * @Description : Cette classe représente la fenêtre principale de l'application.
+ *                Elle permet de créer et de gérer plusieurs chronomètres ainsi que
+ *                leurs différentes représentations graphiques.
+ * @Info        : /
+ * -----------------------------------------------------------------------------------
+ **/
+
 public class MainWindow extends JFrame{
 
     // region Filed
@@ -19,6 +29,12 @@ public class MainWindow extends JFrame{
     // endregion
 
     // region Ctor
+    /**
+     * Nom             : MainWindow
+     * Description     : Constructeur de la classe MainWindow. Crée une fenêtre
+     *                   principale avec un nombre spécifié de chronomètres.
+     * @param nbrTimer : Le nombre de chronomètres à créer.
+     */
     public MainWindow(int nbrTimer)
     {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -48,6 +64,14 @@ public class MainWindow extends JFrame{
     // endregion
 
     //region Private Methods
+    /**
+     * Nom               : creatClockFrame
+     * Description       : Crée et configure une nouvelle fenêtre d'horloge avec le titre spécifié
+     *                     et l'horloge donnée.
+     * @param frameTitle : Le titre de la fenêtre d'horloge.
+     * @param clock      : L'horloge à afficher dans la fenêtre.
+     * @return           : La nouvelle instance de JFrame configurée avec l'horloge.
+     */
     private JFrame creatClockFrame(String frameTitle, Clock clock) {
         JFrame clockFrame = new JFrame();
         clockFrame.setTitle(frameTitle);
@@ -59,6 +83,11 @@ public class MainWindow extends JFrame{
         return clockFrame;
     }
 
+    /**
+     * Nom                : creatRomanObserver
+     * Description        : Crée et attache un observateur d'horloge romaine au chronomètre donné.
+     * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
+     */
     private void creatRomanObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
@@ -79,6 +108,11 @@ public class MainWindow extends JFrame{
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
+    /**
+     * Nom                : creatArabObserver
+     * Description        : Crée et attache un observateur d'horloge arabe au chronomètre donné.
+     * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
+     */
     private void creatArabObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
@@ -99,6 +133,11 @@ public class MainWindow extends JFrame{
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
+    /**
+     * Nom                : creatDigitalObserver
+     * Description        : Crée et attache un observateur d'horloge numérique au chronomètre donné.
+     * @param chronoIndex : L'index du chronomètre dans la liste des chronomètres.
+     */
     private void creatDigitalObserver(int chronoIndex)
     {
         StopWatch chrono = chronos.get(chronoIndex);
@@ -119,6 +158,12 @@ public class MainWindow extends JFrame{
         clock.addMouseListener(new CustomMouseListener(chrono));
     }
 
+    /**
+     * Nom               : addNewLine
+     * Description       : Ajoute une nouvelle ligne de contrôle de chronomètre à un JPanel donné.
+     * @param panFather  : Le JPanel auquel ajouter la nouvelle ligne.
+     * @param lineNumber : Le numéro de ligne correspondant au chronomètre dans la liste des chronomètres.
+     */
     private void addNewLine(JPanel panFather, int lineNumber)
     {
         JPanel panel = new JPanel();
@@ -158,6 +203,12 @@ public class MainWindow extends JFrame{
         panFather.add(panel);
     }
 
+    /**
+     * Nom              : addLastLine
+     * Description      : Ajoute la dernière ligne de contrôle de tous les chronomètres à un JPanel donné.
+     * @param panFather : Le JPanel auquel ajouter la dernière ligne.
+     * @param nbrTimer  : Le nombre total de chronomètres.
+     */
     private void addLastLine(JPanel panFather, int nbrTimer)
     {
         JPanel panel = new JPanel();

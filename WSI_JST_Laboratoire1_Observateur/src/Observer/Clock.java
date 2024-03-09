@@ -4,6 +4,17 @@ import Subject.StopWatch;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * -----------------------------------------------------------------------------------
+ * @Authors     : Slimani Walid & Steiner Jeremiah
+ * @Description : Cette classe abstraite représente une horloge dans une interface graphique.
+ *                Elle étend JPanel et implémente l'interface IObservable pour observer un
+ *                chronomètre donné. Les classes concrètes héritant de cette classe doivent
+ *                fournir une implémentation pour afficher l'horloge dans leur contexte spécifique.
+ * @Info        : /
+ * -----------------------------------------------------------------------------------
+ **/
+
 public abstract class Clock extends JPanel implements IObservable {
     // region Field
     protected int hour;
@@ -19,6 +30,12 @@ public abstract class Clock extends JPanel implements IObservable {
     // endregion
 
     // region Ctor
+    /**
+     * Nom            : Clock
+     * Description    : Constructeur de la classe Clock, initialise une horloge avec le chronomètre
+     *                  spécifié comme sujet.
+     * @param subject : Le chronomètre associé à cette horloge.
+     */
     public Clock(StopWatch subject) {
         this.SUBJECT = subject;
         this.SUBJECT.attach(this);
@@ -32,6 +49,11 @@ public abstract class Clock extends JPanel implements IObservable {
     // endregion
 
     // region Method
+    /**
+     * Nom         : update
+     * Description : Met à jour l'heure, les minutes et les secondes de l'horloge en fonction
+     *               de l'état actuel du chronomètre associé.
+     */
     @Override
     public void update() {
         this.hour = SUBJECT.getHour();
